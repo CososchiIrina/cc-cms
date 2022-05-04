@@ -1,15 +1,18 @@
-//index.js
-const express = require('express')
-const cors = require('cors')
+// index.js
+const express = require("express");
+const messagesRouter = require("./routers/messagesRouter"); //look here
+const bodyParser = require("body-parser");
+
 const app = express();
-app.use(cors())
+// for parsing application/json
+app.use(bodyParser.json()); 
 
-const port = process.env.PORT || 8081; //! schimbat portul din 8080 in 8081
+// for parsing application/xwww-
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-});
+app.use('/messages', messagesRouter); //and look here too
 
+const port = 8081;
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}!`)
+  console.log(`Example app listening on port ${port}!`);
 });
